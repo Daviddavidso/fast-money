@@ -90,7 +90,8 @@
   var pill = $('#pill');
   var tagline = String(site.tagline || '').trim();
   if (pill) pill.textContent = tagline || (live.length + ' ' + offersWord(live.length) + ' банков и МФО');
-  if (pill && window.fetch && location.protocol !== 'file:') {
+  /* на GitHub Pages нет PHP — дату не спрашиваем, чтобы не сыпать 404 */
+  if (pill && window.fetch && location.protocol !== 'file:' && !/github\.io$/.test(location.hostname)) {
     fetch('data.php', { method: 'HEAD', cache: 'no-store' }).then(function (r) {
       var lm = r.ok && r.headers.get('Last-Modified');
       var dt = lm ? new Date(lm) : null;
